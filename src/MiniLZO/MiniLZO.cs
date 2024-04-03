@@ -84,7 +84,7 @@ namespace MiniLZO
 
                 var inputPointerBefore = _inputPointer; // Quick fix
                 _outputPointer = outputPointer; // Quick fix
-                var result = Lzo1x1CompressCore(lengthToReadThisCycle, t);
+                Tuple<uint, uint> result = Lzo1x1CompressCore(lengthToReadThisCycle, t);
                 t = result.Item1;
                 var outLen = result.Item2;
                 _inputPointer = inputPointerBefore + lengthToReadThisCycle; // Quick fix
@@ -104,7 +104,7 @@ namespace MiniLZO
             return _outputPointer;
         }
 
-        private (uint, uint) Lzo1x1CompressCore(uint inputLength, uint ti)
+        private Tuple<uint, uint> Lzo1x1CompressCore(uint inputLength, uint ti)
         {
             uint outputPointerStart = _outputPointer;
             uint inputPointerStart = _inputPointer;
@@ -197,7 +197,7 @@ namespace MiniLZO
                 }
                 incrementInputPointerAtStartOfLoop = false;
             }
-            return (inputPointerEndHmm - (inputPointerTemp - ti), _outputPointer - outputPointerStart);
+            return new Tuple<uint, uint>(inputPointerEndHmm - (inputPointerTemp - ti), _outputPointer - outputPointerStart);
         }
 
         private void WriteLength(uint length, bool isLastWrite = false)

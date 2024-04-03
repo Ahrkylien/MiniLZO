@@ -1,6 +1,5 @@
 ## MiniLZO for .NET
 
-This repository contains the source of the MiniLZO Nuget Package.\
 MiniLZO for .NET is a robust and cross-platform C# reimplementation of the C miniLZO library:\
 https://www.oberhumer.com/opensource/lzo/
 
