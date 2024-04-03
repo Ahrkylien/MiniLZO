@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniLZO", "MiniLZO\MiniLZO.csproj", "{75326C43-5F94-4381-BDEC-E3F4173A5FB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniLZO.Tests", "MiniLZO.Tests\MiniLZO.Tests.csproj", "{4586618C-4820-403F-B4A4-122942CB671E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75326C43-5F94-4381-BDEC-E3F4173A5FB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75326C43-5F94-4381-BDEC-E3F4173A5FB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75326C43-5F94-4381-BDEC-E3F4173A5FB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75326C43-5F94-4381-BDEC-E3F4173A5FB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4586618C-4820-403F-B4A4-122942CB671E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4586618C-4820-403F-B4A4-122942CB671E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4586618C-4820-403F-B4A4-122942CB671E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4586618C-4820-403F-B4A4-122942CB671E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {734D0F21-7699-407B-A611-796A7D813005}
+	EndGlobalSection
+EndGlobal
