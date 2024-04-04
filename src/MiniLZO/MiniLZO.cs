@@ -18,8 +18,18 @@ using System;
 
 namespace MiniLZO
 {
+    /// <summary>
+    /// Provides basic functionality for compressing and decompressing LZO1X data.
+    /// </summary>
     public static class MiniLZO
     {
+        /// <summary>
+        /// Decompresses the provided LZO1X compressed data.
+        /// </summary>
+        /// <param name="compressed">The LZO1X compressed data to decompress.</param>
+        /// <param name="uncompressedLength">Length of the uncompressed data.</param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public static byte[] Decompress(byte[] compressed, int uncompressedLength)
         {
             byte[] decompressed = new byte[uncompressedLength];
@@ -30,17 +40,25 @@ namespace MiniLZO
             return decompressed;
         }
 
+        /// <summary>
+        /// Compresses the provided data using the LZO1X1 compression algorithm.
+        /// </summary>
+        /// <remarks>
+        /// It utilizes the lowest compression level, which is 1.
+        /// </remarks>
+        /// <param name="uncompressed">The data to compress.</param>
+        /// <returns>The LZO1X1 compressed data.</returns>
         public static byte[] Compress(byte[] uncompressed)
         {
             byte[] compressed = new byte[uncompressed.Length + (uncompressed.Length / 16) + 64 + 3];
-            var lzoCompressor = new Lzo1xCompressor(uncompressed, compressed);
+            var lzoCompressor = new Lzo1x1Compressor(uncompressed, compressed);
             var outputLength = lzoCompressor.Compress();
             Array.Resize(ref compressed, (int)outputLength);
             return compressed;
         }
     }
 
-    public class Lzo1xCompressor
+    public class Lzo1x1Compressor
     {
         private uint _inputPointer = 0;
         private uint _outputPointer = 0;
@@ -54,7 +72,7 @@ namespace MiniLZO
         private byte InputBytePeek => _input[_inputPointer];
         private byte OutputByte { set { _output[_outputPointer++] = value; } }
 
-        public Lzo1xCompressor(byte[] input, byte[] output)
+        public Lzo1x1Compressor(byte[] input, byte[] output)
         {
             _input = input;
             _output = output;
@@ -84,7 +102,7 @@ namespace MiniLZO
 
                 var inputPointerBefore = _inputPointer; // Quick fix
                 _outputPointer = outputPointer; // Quick fix
-                Tuple<uint, uint> result = Lzo1x1CompressCore(lengthToReadThisCycle, t);
+                Tuple<uint, uint> result = CompressCore(lengthToReadThisCycle, t);
                 t = result.Item1;
                 var outLen = result.Item2;
                 _inputPointer = inputPointerBefore + lengthToReadThisCycle; // Quick fix
@@ -104,7 +122,7 @@ namespace MiniLZO
             return _outputPointer;
         }
 
-        private Tuple<uint, uint> Lzo1x1CompressCore(uint inputLength, uint ti)
+        private Tuple<uint, uint> CompressCore(uint inputLength, uint ti)
         {
             uint outputPointerStart = _outputPointer;
             uint inputPointerStart = _inputPointer;
