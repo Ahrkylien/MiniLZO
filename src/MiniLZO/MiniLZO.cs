@@ -323,9 +323,7 @@ namespace MiniLZO
                     goto match;
                 _mOutputPointer = _outputPointer - (1 + 0x0800) - (t >> 2) - ((uint)InputByte << 2);
 
-                OutputByte = _output[_mOutputPointer++];
-                OutputByte = _output[_mOutputPointer++];
-                OutputByte = _output[_mOutputPointer];
+                CopyBytes(3, copyFromOutputBuffer: true);
                 goToMatchdone = true;
 
             match:
@@ -338,9 +336,7 @@ namespace MiniLZO
                     }
                     if (t >= 64)
                     {
-                        _mOutputPointer = _outputPointer - 1;
-                        _mOutputPointer -= (t >> 2) & 7;
-                        _mOutputPointer -= (uint)(InputByte << 3);
+                        _mOutputPointer = _outputPointer - 1 - ((t >> 2) & 7) - ((uint)(InputByte << 3));
                         t = (t >> 5) - 1;
 
                         CopyBytes(Math.Max(3, t + 2), copyFromOutputBuffer: true);
@@ -357,10 +353,11 @@ namespace MiniLZO
                     }
                     else if (t >= 16)
                     {
+                        _mOutputPointer = _outputPointer - ((t & 8) << 11);
                         t &= 7;
                         if (t == 0)
                             t += 7 + ReadLength();
-                        _mOutputPointer = _outputPointer - ((t & 8) << 11) - ((uint)ReadUshortFromInput() >> 2);
+                        _mOutputPointer -= (uint)ReadUshortFromInput() >> 2;
                         _inputPointer += 2;
                         if (_mOutputPointer == _outputPointer)
                             goto eof_found;
@@ -369,8 +366,7 @@ namespace MiniLZO
                     else
                     {
                         _mOutputPointer = _outputPointer - 1 - (t >> 2) - ((uint)InputByte << 2);
-                        OutputByte = _output[_mOutputPointer++];
-                        OutputByte = _output[_mOutputPointer];
+                        CopyBytes(2, copyFromOutputBuffer: true);
                         goto match_done;
                     }
 

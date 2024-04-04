@@ -5,6 +5,7 @@
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
     <Title>MiniLZO for .NET</Title>
+    <Version>1.0.1.0</Version>
     <Authors>Henk van Grootheest</Authors>
     <Company />
     <Description>MiniLZO for .NET is a robust and cross-platform C# reimplementation of the C miniLZO library</Description>
